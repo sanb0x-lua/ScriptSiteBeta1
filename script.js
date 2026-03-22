@@ -26,21 +26,22 @@ document.querySelectorAll('.download-btn').forEach(btn => {
         clickSound.currentTime = 0;
         clickSound.play();
 
-        this.classList.add('loading');
         const fileName = this.dataset.file;
+
+        const link = document.createElement('a');
+        link.href = fileName;
+        link.download = fileName;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        this.classList.add('loading');
         const text = this.querySelector('.btn-text');
         text.textContent = "Скачивание...";
 
         setTimeout(() => {
-            const link = document.createElement('a');
-            link.href = fileName;
-            link.download = fileName;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-
             text.textContent = "Скачать";
             this.classList.remove('loading');
-        }, 2000);
+        }, 3000);
     });
 });
